@@ -32,6 +32,7 @@ jobs:
       - name: Pull new image and deploy
         working-directory: deployment
         run: |
+          docker logout ghcr.io || true
           docker compose pull api
           docker compose up -d api
 
