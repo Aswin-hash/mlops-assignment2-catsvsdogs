@@ -27,7 +27,7 @@ jobs:
         run: echo "IMAGE_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
 
       - name: Write deployment env file
-        run: echo "IMAGE_NAME=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" > deployment/.env
+        run: echo "DEPLOY_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" > deployment/.env
 
       - name: Pull new image and deploy
         working-directory: deployment

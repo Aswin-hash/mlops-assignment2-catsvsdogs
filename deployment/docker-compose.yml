@@ -2,11 +2,14 @@
 # instead of building locally. This is what the CD pipeline (and you,
 # simulating a "simple VM server") run to deploy/update the service.
 #
-# IMAGE_NAME is provided via a .env file next to this one, e.g.:
-#   IMAGE_NAME=ghcr.io/<owner>/<repo>:latest
+# DEPLOY_IMAGE is provided via a .env file next to this one, e.g.:
+#   DEPLOY_IMAGE=ghcr.io/<owner>/<repo>:latest
+# (named distinctly from IMAGE_NAME to avoid colliding with the CI/CD
+# workflows' own IMAGE_NAME env var, which docker compose would
+# otherwise silently prefer over the .env file's value)
 services:
   api:
-    image: ${IMAGE_NAME}
+    image: ${DEPLOY_IMAGE}
     pull_policy: never
     ports:
       - "8080:8000"
