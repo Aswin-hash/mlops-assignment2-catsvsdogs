@@ -1,0 +1,29 @@
+# Deployment-target compose: pulls the published image from the registry
+# instead of building locally. This is what the CD pipeline (and you,
+# simulating a "simple VM server") run to deploy/update the service.
+#
+# IMAGE_NAME is provided via a .env file next to this one, e.g.:
+#   IMAGE_NAME=ghcr.io/<owner>/<repo>:latest
+services:
+  api:
+    image: ${IMAGE_NAME}
+    pull_policy: always
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    depends_on:
+      - api
+    restart: unless-stopped

@@ -1,0 +1,29 @@
+stages:
+  preprocess:
+    cmd: python -m src.data.preprocess --params params.yaml
+    deps:
+      - src/data/preprocess.py
+      - data/raw
+    params:
+      - data
+    outs:
+      - data/processed
+
+  train:
+    cmd: python -m src.models.train --params params.yaml
+    deps:
+      - src/models/train.py
+      - src/models/model.py
+      - data/processed
+    params:
+      - train
+    outs:
+      - models/model.pt
+    metrics:
+      - reports/metrics.json:
+          cache: false
+    plots:
+      - reports/loss_curve.png:
+          cache: false
+      - reports/confusion_matrix.png:
+          cache: false

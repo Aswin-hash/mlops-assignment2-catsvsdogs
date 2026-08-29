@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Data (tracked via DVC, not Git)
+/data/raw/*
+/data/processed/*
+!/data/raw/.gitkeep
+!/data/processed/.gitkeep
+
+# Model artifacts: the small trained checkpoint (models/model.pt) IS committed
+# to Git on purpose (it's a required deliverable and the Docker image needs it
+# at build time). Only ignore stray/experimental checkpoints here.
+/models/*.experimental.pt
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Credentials - NEVER commit
+kaggle.json
+*.pem
+.env
+
+# Logs
+*.log
+logs/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# DVC
+/data/raw.dvc.lock

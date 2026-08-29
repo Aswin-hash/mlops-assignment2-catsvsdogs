@@ -1,0 +1,17 @@
+# Local dev compose: builds the image from source and runs it.
+# Use this for M2 (build/run locally, verify via curl/Postman).
+services:
+  api:
+    build: .
+    image: catsdogs-api:local
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=models/model.pt
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
