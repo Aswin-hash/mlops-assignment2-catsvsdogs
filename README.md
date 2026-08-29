@@ -171,7 +171,7 @@ CI run and your `curl` demo:
 ```bash
 cd deployment
 echo "IMAGE_NAME=ghcr.io/<owner>/<repo>:latest" > .env
-docker compose pull api
+docker pull ghcr.io/<owner>/<repo>:latest
 docker compose up -d
 python smoke_test.py --base-url http://localhost:8080
 ```

@@ -32,7 +32,7 @@ jobs:
       - name: Pull new image and deploy
         working-directory: deployment
         run: |
-          docker compose pull api
+          docker pull "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
           docker compose up -d api
 
       - name: Set up Python for smoke test
