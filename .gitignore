@@ -33,6 +33,7 @@ logs/
 .DS_Store
 .idea/
 .vscode/
+.claude/
 
 # DVC
 /data/raw.dvc.lock

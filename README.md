@@ -132,11 +132,11 @@ pytest, matplotlib, kaggle) that are **not** shipped in the inference image.
 ```bash
 docker compose build
 docker compose up -d
-curl -f http://localhost:8000/health
-curl -F "file=@some_cat_photo.jpg" http://localhost:8000/predict
+curl -f http://localhost:8080/health
+curl -F "file=@some_cat_photo.jpg" http://localhost:8080/predict
 ```
 
-(Or plain Docker: `docker build -t catsdogs-api:local . && docker run -p 8000:8000 catsdogs-api:local`.)
+(Or plain Docker: `docker build -t catsdogs-api:local . && docker run -p 8080:8000 catsdogs-api:local`.)
 
 ---
 
@@ -173,11 +173,11 @@ cd deployment
 echo "IMAGE_NAME=ghcr.io/<owner>/<repo>:latest" > .env
 docker compose pull api
 docker compose up -d
-python smoke_test.py --base-url http://localhost:8000
+python smoke_test.py --base-url http://localhost:8080
 ```
 
 This also starts a **Prometheus** container scraping the API's `/metrics`
-endpoint (http://localhost:9090).
+endpoint (http://localhost:9091).
 
 ---
 
@@ -201,7 +201,7 @@ against ground truth:
 
 ```bash
 python monitoring/simulate_requests.py \
-  --base-url http://localhost:8000 \
+  --base-url http://localhost:8080 \
   --test-dir data/processed/test \
   --n-per-class 25
 ```
@@ -223,15 +223,15 @@ mlflow ui --backend-store-uri mlruns &
 
 # M2
 docker compose build && docker compose up -d
-curl -f http://localhost:8000/health
-curl -F "file=@sample.jpg" http://localhost:8000/predict
+curl -f http://localhost:8080/health
+curl -F "file=@sample.jpg" http://localhost:8080/predict
 
 # M3/M4 — push to GitHub, watch Actions tab: CI -> CD
 git push origin main
 
 # M5
 python monitoring/simulate_requests.py --n-per-class 20
-curl http://localhost:8000/metrics
+curl http://localhost:8080/metrics
 ```
 
 ## Deliverables checklist

@@ -5,7 +5,7 @@ services:
     build: .
     image: catsdogs-api:local
     ports:
-      - "8000:8000"
+      - "8080:8000"
     environment:
       - MODEL_PATH=models/model.pt
     healthcheck:

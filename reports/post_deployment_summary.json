@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-29T08:19:52.057649+00:00",
+  "n_requests": 40,
+  "accuracy": 0.55,
+  "avg_latency_ms": 41.12,
+  "p95_latency_ms": 56.11
+}

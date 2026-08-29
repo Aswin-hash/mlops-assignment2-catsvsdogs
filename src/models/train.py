@@ -23,7 +23,7 @@ from torchvision import datasets, transforms
 
 from src.models.model import build_model
 
-CLASS_NAMES = ["cat", "dog"]
+CLASS_NAMES = ["cats", "dogs"]
 
 
 def set_seed(seed: int) -> None:

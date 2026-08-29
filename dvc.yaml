@@ -18,7 +18,8 @@ stages:
     params:
       - train
     outs:
-      - models/model.pt
+      - models/model.pt:
+          cache: false
     metrics:
       - reports/metrics.json:
           cache: false

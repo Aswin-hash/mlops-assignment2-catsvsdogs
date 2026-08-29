@@ -17,7 +17,7 @@ IMAGE_SIZE = 224
 def load_model(checkpoint_path: Union[str, Path], model_name: str = "simple_cnn", device: str = "cpu"):
     """Load a trained model checkpoint into eval mode."""
     model = build_model(model_name)
-    state_dict = torch.load(checkpoint_path, map_location=device)
+    state_dict = torch.load(checkpoint_path, map_location=device, weights_only=True)
     model.load_state_dict(state_dict)
     model.to(device)
     model.eval()

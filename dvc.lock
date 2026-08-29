@@ -1,0 +1,73 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python -m src.data.preprocess --params params.yaml
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: 4ea2995e53b3c4605b207fd116951720.dir
+      size: 571915376
+      nfiles: 25001
+    - path: src/data/preprocess.py
+      hash: md5
+      md5: db9ed2499b423a493f574dbf85c8f12f
+      size: 4282
+    params:
+      params.yaml:
+        data:
+          raw_dir: data/raw
+          processed_dir: data/processed
+          image_size: 224
+          max_per_class: 1500
+          train_split: 0.8
+          val_split: 0.1
+          test_split: 0.1
+          seed: 42
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 46cebe55a7094ae63a07477500c6067a.dir
+      size: 26618316
+      nfiles: 3000
+  train:
+    cmd: python -m src.models.train --params params.yaml
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: 46cebe55a7094ae63a07477500c6067a.dir
+      size: 26618316
+      nfiles: 3000
+    - path: src/models/model.py
+      hash: md5
+      md5: cc9a59259289173ea542b6b8224351d8
+      size: 1476
+    - path: src/models/train.py
+      hash: md5
+      md5: bc2417cf020e21de1477138b04466903
+      size: 7446
+    params:
+      params.yaml:
+        train:
+          model: simple_cnn
+          epochs: 8
+          batch_size: 32
+          lr: 0.001
+          num_workers: 2
+          seed: 42
+    outs:
+    - path: models/model.pt
+      hash: md5
+      md5: 0b2bc310c0a2b2725e1b0af0e22258e9
+      size: 508626
+    - path: reports/confusion_matrix.png
+      hash: md5
+      md5: 51bad164f219a535769db1c7947c1a75
+      size: 18423
+    - path: reports/loss_curve.png
+      hash: md5
+      md5: 086522d07eaf70c1e7e975c0a9e04a02
+      size: 28109
+    - path: reports/metrics.json
+      hash: md5
+      md5: 04f8ac12c65890d599c6d28f773b163f
+      size: 200
