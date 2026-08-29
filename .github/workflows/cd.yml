@@ -29,23 +29,9 @@ jobs:
       - name: Write deployment env file
         run: echo "IMAGE_NAME=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" > deployment/.env
 
-      - name: Debug registry auth state
-        run: |
-          echo "--- docker config ---"
-          cat ~/.docker/config.json 2>&1 || echo "no config file"
-          echo "--- env auth vars ---"
-          env | grep -iE "docker|ghcr|registry" || echo "none"
-          echo "--- raw manifest fetch (no auth) ---"
-          curl -sS -i "https://ghcr.io/v2/aswin-hash/mlops-assignment2-catsvsdogs/manifests/latest" \
-            -H "Accept: application/vnd.oci.image.index.v1+json" | head -20
-          echo "--- docker pull directly with -v ---"
-          docker logout ghcr.io || true
-          docker pull ghcr.io/aswin-hash/mlops-assignment2-catsvsdogs:latest 2>&1 || true
-
       - name: Pull new image and deploy
         working-directory: deployment
         run: |
-          docker logout ghcr.io || true
           docker compose pull api
           docker compose up -d api
 
