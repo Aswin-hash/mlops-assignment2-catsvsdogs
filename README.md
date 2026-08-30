@@ -170,7 +170,7 @@ CI run and your `curl` demo:
 
 ```bash
 cd deployment
-echo "DEPLOY_IMAGE=ghcr.io/<owner>/<repo>:latest" > .env
+printf "DEPLOY_IMAGE=ghcr.io/<owner>/<repo>:latest\nHOST_PORT=8080\n" > .env  # HOST_PORT only needed if 8000 is taken locally
 docker pull ghcr.io/<owner>/<repo>:latest
 docker compose up -d
 python smoke_test.py --base-url http://localhost:8080

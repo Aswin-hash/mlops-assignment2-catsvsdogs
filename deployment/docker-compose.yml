@@ -7,12 +7,13 @@
 # (named distinctly from IMAGE_NAME to avoid colliding with the CI/CD
 # workflows' own IMAGE_NAME env var, which docker compose would
 # otherwise silently prefer over the .env file's value)
+# Optionally set HOST_PORT too if 8000 is already taken on your machine.
 services:
   api:
     image: ${DEPLOY_IMAGE}
     pull_policy: never
     ports:
-      - "8080:8000"
+      - "${HOST_PORT:-8000}:8000"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 30s
