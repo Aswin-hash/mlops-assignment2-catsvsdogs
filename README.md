@@ -71,7 +71,7 @@ also DVC-tracked as a pipeline stage, so it's fully reproducible:
 
 ```bash
 dvc repro preprocess
-git add data/processed.dvc dvc.lock
+git add dvc.lock data/.gitignore
 git commit -m "Track pre-processed data"
 ```
 
@@ -157,10 +157,9 @@ standing in for "a simple VM server".
 The CD workflow triggers via `workflow_run` once CI finishes successfully
 on `main`, then:
 
-1. Logs in to GHCR and pulls the freshly published image.
-2. `docker compose up -d` (deploy/update the running service).
-3. Runs `deployment/smoke_test.py` (health check + one real prediction call) — **the job fails if the smoke test fails**, blocking a bad deploy.
-4. Tears the container down again (GitHub-hosted runners are ephemeral — see below for a persistent local run).
+1. Pulls the freshly published image (public on GHCR, so no login needed) and deploys it with `docker compose up -d`.
+2. Runs `deployment/smoke_test.py` (health check + one real prediction call) — **the job fails if the smoke test fails**, blocking a bad deploy.
+3. Tears the container down again (GitHub-hosted runners are ephemeral — see below for a persistent local run).
 
 ### Running the "deployment target" persistently yourself
 

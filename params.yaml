@@ -9,7 +9,7 @@ data:
   seed: 42
 
 train:
-  model: simple_cnn      # simple_cnn | logistic_regression
+  model: simple_cnn
   epochs: 8
   batch_size: 32
   lr: 0.001
