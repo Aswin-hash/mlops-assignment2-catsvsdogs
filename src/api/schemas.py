@@ -6,6 +6,7 @@ class HealthResponse(BaseModel):
 
     status: str
     model_loaded: bool
+    version: str = "1.1.0"
 
 
 class Probabilities(BaseModel):

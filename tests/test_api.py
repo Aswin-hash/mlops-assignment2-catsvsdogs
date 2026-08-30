@@ -22,7 +22,7 @@ def test_health_and_predict_endpoints():
 
     health = client.get("/health")
     assert health.status_code == 200
-    assert health.json() == {"status": "ok", "model_loaded": True}
+    assert health.json() == {"status": "ok", "model_loaded": True, "version": "1.1.0"}
 
     files = {"file": ("pet.jpg", _fake_image_bytes(), "image/jpeg")}
     response = client.post("/predict", files=files)
