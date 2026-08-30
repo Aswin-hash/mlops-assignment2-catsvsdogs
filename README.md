@@ -245,3 +245,5 @@ curl http://localhost:8080/metrics
 - [x] Logging + Prometheus metrics + post-deployment performance tracking
 - [ ] Zip the repo (excluding `.venv/`, `mlruns/` optional) for submission
 - [ ] Record < 5 min screen capture: code change -> CI -> CD -> live prediction
+
+# readme updated for test
